@@ -1,11 +1,12 @@
 # ignore everything in the root except the "wp-content" directory.
 !wp-content/
+wp-admin/
+wp-includes/
 
 # ignore everything in the "wp-content" directory, except:
 # "mu-plugins", "plugins", "themes" directory
 wp-content/*
 !wp-content/mu-plugins/
-!wp-content/plugins/
 !wp-content/themes/
 
 # ignore these plugins
@@ -21,3 +22,12 @@ node_modules/
 *.log
 *.sql
 *.sqlite
+wp-*.php
+.htaccess
+index.php
+license.txt
+readme.html
+xmlrpc.php
+
+# Docker config
+.docker/mysql/

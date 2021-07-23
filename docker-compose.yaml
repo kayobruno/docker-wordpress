@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+    db:
+        container_name: db
+        image: mysql:5.7
+        volumes: 
+            - .docker/mysql:/var/lib/mysql
+        restart: always
+        ports: 
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: wordpress
+            MYSQL_USER: wordpress
+            MYSQL_PASSWORD: wordpress
+        networks: 
+            - app_network
+
+    wordpress:
+        container_name: wordpress
+        image: wordpress:latest
+        volumes: 
+            - ./:/var/www/html
+        depends_on:
+            - db
+        ports:
+            - "8000:80"
+        restart: always
+        environment:
+            WORDPRESS_DB_HOST: db:3306
+            WORDPRESS_DB_USER: wordpress
+            WORDPRESS_DB_PASSWORD: wordpress
+        networks: 
+            - app_network
+
+networks:
+    app_network:
+        driver: bridge
